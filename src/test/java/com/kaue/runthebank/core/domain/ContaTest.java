@@ -1,5 +1,7 @@
 package com.kaue.runthebank.core.domain;
 
+import com.kaue.runthebank.application.core.domain.Conta;
+import com.kaue.runthebank.application.core.domain.StatusConta;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,11 +52,11 @@ class ContaTest {
     private static void preparDados() {
         contaPf = Conta.builder()
                 .saldo(BigDecimal.valueOf(2))
-                .status(Situacao.ATIVA)
+                .status(StatusConta.ATIVA)
                 .build();
         contaPj = Conta.builder()
                 .saldo(BigDecimal.valueOf(1000.50))
-                .status(Situacao.INATIVA)
+                .status(StatusConta.INATIVA)
                 .build();
     }
 }

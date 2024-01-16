@@ -1,11 +1,12 @@
-package com.kaue.runthebank.core.domain;
+package com.kaue.runthebank.application.core.domain;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
@@ -16,8 +17,8 @@ public class Conta {
     private String agencia;
     private String numero;
     private BigDecimal saldo;
-    private Situacao status;
-    private List<Movimento> movimentacoes;
+    private StatusConta status;
+    private Set<Transacao> transacoes = new HashSet<>();
 
     public boolean temSaldoSuficiente(BigDecimal valorDebito) {
         return valorDebito.compareTo(saldo) < 0;
@@ -36,7 +37,7 @@ public class Conta {
     }
 
     public boolean estaAtivo() {
-        return status.equals(Situacao.ATIVA);
+        return status.equals(StatusConta.ATIVA);
     }
 
     public boolean estaInativo() {

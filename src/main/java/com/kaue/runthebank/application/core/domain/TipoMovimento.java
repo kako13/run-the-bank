@@ -1,4 +1,4 @@
-package com.kaue.runthebank.core.domain;
+package com.kaue.runthebank.application.core.domain;
 
 import lombok.Getter;
 

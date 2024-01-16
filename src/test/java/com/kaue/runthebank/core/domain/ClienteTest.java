@@ -1,11 +1,13 @@
 package com.kaue.runthebank.core.domain;
 
+import com.kaue.runthebank.application.core.domain.Cliente;
+import com.kaue.runthebank.application.core.domain.Conta;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 class ClienteTest {
     private Cliente cliente;
@@ -26,13 +28,13 @@ class ClienteTest {
     }
 
     private void prepararDados() {
-        cliente = ClientePF.builder()
+        cliente = Cliente.builder()
                 .id(1L)
                 .nome("João")
                 .endereco("Rua A")
                 .senha("senha123")
-                .cpf("123.456.789-01")
-                .contas(List.of(Conta.builder()
+                .documento("123.456.789-01")
+                .contas(Set.of(Conta.builder()
                                     .id(1L)
                                     .saldo(BigDecimal.valueOf(1000.50))
                                     .build()))

@@ -1,25 +1,25 @@
-package com.kaue.runthebank.core.domain;
+package com.kaue.runthebank.application.core.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Builder
 @Getter
-public abstract class Cliente {
+@Setter
+public class Cliente {
     @EqualsAndHashCode.Include
     Long id;
     String nome;
     String endereco;
     String senha;
     String documento;
-    TipoCliente tipoCliente;
-    List<Conta> contas;
+    TipoDocumento tipoDocumento;
+
+    Set<Conta> contas;
 
     public boolean possuiConta(Long idConta) {
         return contas.stream().anyMatch(conta -> conta.getId().equals(idConta));

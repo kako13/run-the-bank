@@ -1,7 +1,7 @@
-package com.kaue.runthebank.application.ports.out;
+package com.kaue.runthebank.application.ports.out.cliente;
 
 import com.kaue.runthebank.application.core.domain.Cliente;
 
-public interface SalvarClientePort {
+public interface CadastroClientePort {
     Cliente salvar(Cliente cliente);
 }

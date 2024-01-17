@@ -3,7 +3,7 @@ create table cliente (
     nome varchar(255) not null,
     senha varchar(255) not null,
     documento varchar(255) not null UNIQUE,
-    tipo_documento varchar(255) check (tipo_documento in ('CPF','CNPJ')),
+    tipo_documento varchar(255) check (tipo_documento in ('CPF','CNPJ')) not null,
     endereco varchar(255),
     data_cadastro datetime not null,
 

@@ -1,6 +1,6 @@
-package com.kaue.runthebank.adapters.inboud.assembler;
+package com.kaue.runthebank.adapters.inboud.assembler.cliente;
 
-import com.kaue.runthebank.adapters.inboud.controller.request.ClienteModel;
+import com.kaue.runthebank.adapters.inboud.controller.request.cliente.ClienteModel;
 import com.kaue.runthebank.adapters.inboud.entity.ClienteEntity;
 import com.kaue.runthebank.application.core.domain.Cliente;
 import org.modelmapper.ModelMapper;

@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = {CPFouCNPJValidator.class})
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CPFouCNPJ {
     String message() default "Documento não corresponde a CPF ou CNPJ";
@@ -15,4 +15,7 @@ public @interface CPFouCNPJ {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    String campoDocumento();
+    String campoTipoDocumento();
 }

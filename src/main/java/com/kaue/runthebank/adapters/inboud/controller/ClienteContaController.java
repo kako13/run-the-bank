@@ -36,7 +36,6 @@ public class ClienteContaController {
     @GetMapping("/{contaId}")
     public ContaModel buscar(@PathVariable Long clienteId, @PathVariable Long contaId) {
         Conta conta = consultaContaClienteServicePort.buscar(clienteId, contaId);
-        Conta novaConta = aberturaContaClienteServicePort.abrirConta(clienteId, conta);
-        return contaAssembler.toModel(novaConta);
+        return contaAssembler.toModel(conta);
     }
 }

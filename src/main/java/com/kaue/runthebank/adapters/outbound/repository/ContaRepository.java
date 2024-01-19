@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ContaRepository extends JpaRepository<ContaEntity, Long> {
-    Optional<ContaEntity> findByIdAndClienteId(Long clienteId, Long contaId);
+    Optional<ContaEntity> findByIdAndClienteId(Long contaId, Long clienteId);
 }

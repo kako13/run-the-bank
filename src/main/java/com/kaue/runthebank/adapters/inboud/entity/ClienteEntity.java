@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "cliente")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -24,4 +26,7 @@ public class ClienteEntity {
     private TipoDocumento tipoDocumento;
     @CreationTimestamp
     private OffsetDateTime dataCadastro;
+
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private Set<ContaEntity> contas = new HashSet<>();
 }

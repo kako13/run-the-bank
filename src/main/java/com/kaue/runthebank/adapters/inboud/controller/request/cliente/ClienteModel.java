@@ -5,8 +5,8 @@ import com.kaue.runthebank.application.core.domain.TipoDocumento;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class ClienteModel {
@@ -17,5 +17,5 @@ public class ClienteModel {
     private TipoDocumento tipoDocumento;
     private String documento;
     private OffsetDateTime dataCadastro;
-    private List<ContaModel> contas = new ArrayList<>();
+    private Set<ContaModel> contas = new HashSet<>();
 }

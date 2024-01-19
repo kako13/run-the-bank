@@ -20,7 +20,7 @@ public class ConsultaContaDataBaseAdapter implements ConsultaContaPort {
 
     @Override
     public Conta buscar(Long clienteId, Long contaId) {
-        ContaEntity contaEntity = contaRepository.findByIdAndClienteId(clienteId, contaId)
+        ContaEntity contaEntity = contaRepository.findByIdAndClienteId(contaId, clienteId)
                 .orElseThrow(() -> new ContaNaoEncontradoException(contaId));
         return contaDisassembler.toDomainObject(contaEntity);
     }

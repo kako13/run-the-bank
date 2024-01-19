@@ -1,7 +1,6 @@
-package com.kaue.runthebank.core.domain;
+package com.kaue.runthebank.application.core.domain;
 
-import com.kaue.runthebank.application.core.domain.Conta;
-import com.kaue.runthebank.application.core.domain.StatusConta;
+import com.kaue.runthebank.application.core.utils.data.ContaTestData;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,13 +49,7 @@ class ContaTest {
     }
 
     private static void preparDados() {
-        contaPf = Conta.builder()
-                .saldo(BigDecimal.valueOf(2))
-                .status(StatusConta.ATIVA)
-                .build();
-        contaPj = Conta.builder()
-                .saldo(BigDecimal.valueOf(1000.50))
-                .status(StatusConta.INATIVA)
-                .build();
+        contaPf = ContaTestData.umaContaAtivaExistente().build();
+        contaPj = ContaTestData.umaContaInativaNova().build();
     }
 }

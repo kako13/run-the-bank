@@ -12,3 +12,8 @@ insert into
 cliente (nome, senha, documento, tipo_documento, endereco, data_cadastro)
 values
 ('Kauê Danilo', '345678', '345.678.901-75', 'CPF', 'Rua do Bando, 832', CURRENT_TIMESTAMP() AT TIME ZONE 'UTC');
+
+insert into
+conta (agencia, cliente_id, saldo, status, data_cadastro)
+values
+('09452-2', 1, 100, 'ATIVA', CURRENT_TIMESTAMP() AT TIME ZONE 'UTC');

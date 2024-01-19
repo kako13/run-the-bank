@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CPFouCNPJ {
-    String message() default "Documento não corresponde a CPF ou CNPJ";
+    String message() default "";
 
     Class<?>[] groups() default {};
 

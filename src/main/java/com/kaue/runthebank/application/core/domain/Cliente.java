@@ -3,6 +3,7 @@ package com.kaue.runthebank.application.core.domain;
 import lombok.*;
 
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -21,7 +22,7 @@ public class Cliente {
     private TipoDocumento tipoDocumento;
     private OffsetDateTime dataCadastro;
 
-    private Set<Conta> contas;
+    private Set<Conta> contas = new HashSet<>();
 
     public boolean possuiConta(Long idConta) {
         return contas.stream().anyMatch(conta -> conta.getId().equals(idConta));

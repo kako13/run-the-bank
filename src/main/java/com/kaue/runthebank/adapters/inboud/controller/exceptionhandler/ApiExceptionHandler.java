@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import com.kaue.runthebank.config.exception.EntidadeNaoEncontradaException;
 import com.kaue.runthebank.config.exception.NegocioException;
 import com.kaue.runthebank.config.exception.ValidacaoException;
+import jakarta.validation.ConstraintDefinitionException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,16 +191,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
-//    @ExceptionHandler(EntidadeEmUsoException.class)
-//    public ResponseEntity<?> handleEntidadeEmUso(EntidadeEmUsoException ex, WebRequest request) {
-//        HttpStatus status = HttpStatus.CONFLICT;
-//        ProblemType problemType = ProblemType.ENTIDADE_EM_USO;
-//        String detail = ex.getMessage();
-//        Problem problem = createProblemBuilder(status, problemType, detail)
-//                .userMessage(detail)
-//                .build();
-//        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
-//    }
+    @ExceptionHandler(ConstraintDefinitionException.class)
+    public ResponseEntity<Object> handleEnumDefinition(ConstraintDefinitionException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
+        String detail = ex.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
+                .build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleUncaught(Exception ex, WebRequest request) {

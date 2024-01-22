@@ -1,17 +1,12 @@
 package com.kaue.runthebank.config;
 
-import com.kaue.runthebank.adapters.outbound.CadastroClienteDataBaseAdapter;
-import com.kaue.runthebank.adapters.outbound.CadastroContaDataBaseAdapter;
-import com.kaue.runthebank.adapters.outbound.ConsultaClienteDataBaseAdapter;
-import com.kaue.runthebank.adapters.outbound.ConsultaContaDataBaseAdapter;
-import com.kaue.runthebank.application.core.service.AberturaContaClienteService;
-import com.kaue.runthebank.application.core.service.CadastroClienteService;
-import com.kaue.runthebank.application.core.service.ConsultaClienteService;
-import com.kaue.runthebank.application.core.service.ConsultaContaClienteService;
+import com.kaue.runthebank.adapters.outbound.*;
+import com.kaue.runthebank.application.core.service.*;
 import com.kaue.runthebank.application.ports.in.cliente.CadastroClienteServicePort;
 import com.kaue.runthebank.application.ports.in.cliente.ConsultaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.conta.AberturaContaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.conta.ConsultaContaClienteServicePort;
+import com.kaue.runthebank.application.ports.in.pagamento.PagamentoContaServicePort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,5 +28,9 @@ public class Config {
     @Bean
     public ConsultaContaClienteServicePort consultaContaService(ConsultaContaDataBaseAdapter consultaContaDataBaseAdapter) {
         return new ConsultaContaClienteService(consultaContaDataBaseAdapter);
+    }
+    @Bean
+    public PagamentoContaServicePort pagamentoContaService(PagamentoDataBaseAdapter pagamentoDataBaseAdapter) {
+        return new PagamentoContaService(pagamentoDataBaseAdapter);
     }
 }

@@ -7,6 +7,7 @@ import com.kaue.runthebank.application.core.domain.Conta;
 import com.kaue.runthebank.application.core.domain.StatusConta;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
 import java.util.List;
@@ -30,4 +31,8 @@ public interface ContaMapper {
     List<ContaModel> toCollectionModel(List<Conta> conta);
 
     List<Conta> toCollectionDomain(List<ContaEntity> contasEntity);
+
+    @Mapping(target = "id", ignore = true)
+    void updateContaFromDomain(@MappingTarget ContaEntity contaEntity, Conta conta);
+
 }

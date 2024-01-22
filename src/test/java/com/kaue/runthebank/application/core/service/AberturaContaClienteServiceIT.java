@@ -1,6 +1,6 @@
 package com.kaue.runthebank.application.core.service;
 
-import com.kaue.runthebank.adapters.inboud.assembler.cliente.ClienteAssembler;
+import com.kaue.runthebank.adapters.inboud.assembler.cliente.ClienteMapper;
 import com.kaue.runthebank.adapters.inboud.entity.ClienteEntity;
 import com.kaue.runthebank.adapters.outbound.repository.ClienteRepository;
 import com.kaue.runthebank.application.core.domain.Cliente;
@@ -22,7 +22,7 @@ class AberturaContaClienteServiceIT {
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
-    private ClienteAssembler clienteAssembler;
+    private ClienteMapper clienteMapper;
 
     @Autowired
     private AberturaContaClienteService aberturaContaClienteService;
@@ -39,12 +39,12 @@ class AberturaContaClienteServiceIT {
         Conta conta = aberturaContaClienteService.abrirConta(cliente.getId(), contaDomain);
         Assertions.assertThat(conta)
                 .isNotNull()
-                .hasNoNullFieldsOrProperties();
+                .hasNoNullFieldsOrPropertiesExcept("transacoes");
     }
 
     private void prepararDados() {
         Cliente clienteDomain = ClienteTestData.umClienteNovo().build();
-        ClienteEntity clienteToSave = clienteAssembler.toEntity(clienteDomain);
+        ClienteEntity clienteToSave = clienteMapper.toEntity(clienteDomain);
         cliente = clienteRepository.save(clienteToSave);
         contaDomain = ContaTestData.umaContaInativaNova().build();
     }

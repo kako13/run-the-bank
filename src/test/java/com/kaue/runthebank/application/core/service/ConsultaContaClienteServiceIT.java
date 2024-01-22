@@ -1,7 +1,7 @@
 package com.kaue.runthebank.application.core.service;
 
-import com.kaue.runthebank.adapters.inboud.assembler.cliente.ClienteAssembler;
-import com.kaue.runthebank.adapters.inboud.assembler.conta.ContaAssembler;
+import com.kaue.runthebank.adapters.inboud.assembler.cliente.ClienteMapper;
+import com.kaue.runthebank.adapters.inboud.assembler.conta.ContaMapper;
 import com.kaue.runthebank.adapters.inboud.entity.ClienteEntity;
 import com.kaue.runthebank.adapters.inboud.entity.ContaEntity;
 import com.kaue.runthebank.adapters.outbound.repository.ClienteRepository;
@@ -27,9 +27,9 @@ class ConsultaContaClienteServiceIT {
     @Autowired
     private ContaRepository contaRepository;
     @Autowired
-    private ClienteAssembler clienteAssembler;
+    private ClienteMapper clienteMapper;
     @Autowired
-    private ContaAssembler contaAssembler;
+    private ContaMapper contaMapper;
 
     @Autowired
     private ConsultaContaClienteService consultaContaClienteService;
@@ -47,15 +47,15 @@ class ConsultaContaClienteServiceIT {
         Conta conta = consultaContaClienteService.buscar(cliente.getId(), this.conta.getId());
         Assertions.assertThat(conta)
                 .isNotNull()
-                .hasNoNullFieldsOrProperties();
+                .hasNoNullFieldsOrPropertiesExcept("transacoes");
     }
 
     private void prepararDados() {
         Cliente clienteDomain = ClienteTestData.umClienteNovo().build();
-        ClienteEntity clienteToSave = clienteAssembler.toEntity(clienteDomain);
+        ClienteEntity clienteToSave = clienteMapper.toEntity(clienteDomain);
         cliente = clienteRepository.save(clienteToSave);
         contaDomain = ContaTestData.umaContaInativaNova().build();
-        ContaEntity contaEntity = contaAssembler.toEntity(contaDomain);
+        ContaEntity contaEntity = contaMapper.toEntity(contaDomain);
         contaEntity.setCliente(cliente);
         conta = contaRepository.save(contaEntity);
     }

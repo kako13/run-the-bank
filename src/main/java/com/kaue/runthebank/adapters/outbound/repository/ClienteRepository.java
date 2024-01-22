@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
     @Query("from cliente c left join fetch c.contas where c.id = :clienteId ")
-    Optional<ClienteEntity> findById(Long clienteId);
+    Optional<ClienteEntity> findByIdJoinContas(Long clienteId);
 }

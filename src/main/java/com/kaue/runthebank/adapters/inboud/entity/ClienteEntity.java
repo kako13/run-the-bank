@@ -27,6 +27,6 @@ public class ClienteEntity {
     @CreationTimestamp
     private OffsetDateTime dataCadastro;
 
-    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cliente")
     private Set<ContaEntity> contas = new HashSet<>();
 }

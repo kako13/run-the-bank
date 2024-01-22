@@ -22,7 +22,7 @@ public class ConsultaClienteDataBaseAdapter implements ConsultaClientePort {
 
     @Override
     public Cliente buscar(Long clienteId) {
-        ClienteEntity clienteEntity = cadastroClienteRepository.findById(clienteId)
+        ClienteEntity clienteEntity = cadastroClienteRepository.findByIdJoinContas(clienteId)
                 .orElseThrow(() -> new ClienteNaoEncontradoException(clienteId));
         return clienteMapper.toDomainObject(clienteEntity);
     }

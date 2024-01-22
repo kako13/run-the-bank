@@ -1,8 +1,10 @@
 package com.kaue.runthebank.adapters.inboud.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kaue.runthebank.adapters.inboud.assembler.conta.ContaMapper;
 import com.kaue.runthebank.adapters.inboud.controller.request.conta.ContaInput;
 import com.kaue.runthebank.adapters.inboud.controller.request.conta.ContaModel;
+import com.kaue.runthebank.adapters.inboud.controller.request.view.ContaView;
 import com.kaue.runthebank.application.core.domain.Conta;
 import com.kaue.runthebank.application.ports.in.cliente.ConsultaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.conta.AberturaContaClienteServicePort;
@@ -28,6 +30,7 @@ public class ClienteContaController {
     private ContaMapper contaMapper;
 
     @PostMapping
+    @JsonView(ContaView.Cadastro.class)
     @ResponseStatus(HttpStatus.CREATED)
     public ContaModel adicionar(@PathVariable Long clienteId, @RequestBody @Valid ContaInput contaInput) {
         Conta conta = contaMapper.toDomainObject(contaInput);
@@ -36,8 +39,8 @@ public class ClienteContaController {
     }
 
     @GetMapping
+    @JsonView(ContaView.Listagem.class)
     public List<ContaModel> listar(@PathVariable Long clienteId) {
-        // Validando cliente antes da listagem
         consultaClienteServicePort.buscar(clienteId);
         List<Conta> conta = consultaContaClienteServicePort.listar(clienteId);
         return contaMapper.toCollectionModel(conta);

@@ -22,7 +22,7 @@ public class Conta {
     private Set<Transacao> transacoes = new HashSet<>();
 
     public boolean temSaldoSuficiente(BigDecimal valorDebito) {
-        return valorDebito.compareTo(saldo) < 0;
+        return valorDebito.compareTo(saldo) <= 0;
     }
 
     public boolean naoTemSaldoSuficiente(BigDecimal valorDebito) {
@@ -37,11 +37,11 @@ public class Conta {
         this.saldo=saldo.add(valorCredito);
     }
 
-    public boolean estaAtivo() {
+    public boolean estaAtiva() {
         return status.equals(StatusConta.ATIVA);
     }
 
     public boolean estaInativo() {
-        return !estaAtivo();
+        return !estaAtiva();
     }
 }

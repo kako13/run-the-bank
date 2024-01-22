@@ -40,7 +40,7 @@ class ContaTest {
 
     @Test
     void deveRetornarTrue_QuandoUsuarioEstaAtivo() {
-        Assertions.assertThat(contaPf.estaAtivo()).isTrue();
+        Assertions.assertThat(contaPf.estaAtiva()).isTrue();
     }
 
     @Test

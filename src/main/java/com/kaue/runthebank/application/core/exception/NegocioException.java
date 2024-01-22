@@ -1,4 +1,4 @@
-package com.kaue.runthebank.config.exception;
+package com.kaue.runthebank.application.core.exception;
 
 public class NegocioException extends RuntimeException {
     public NegocioException(String mensagem) {

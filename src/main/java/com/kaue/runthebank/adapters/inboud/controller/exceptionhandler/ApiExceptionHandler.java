@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
-import com.kaue.runthebank.config.exception.EntidadeNaoEncontradaException;
-import com.kaue.runthebank.config.exception.NegocioException;
-import com.kaue.runthebank.config.exception.ValidacaoException;
+import com.kaue.runthebank.application.core.exception.EntidadeNaoEncontradaException;
+import com.kaue.runthebank.application.core.exception.NegocioException;
+import com.kaue.runthebank.application.core.exception.ValidacaoException;
 import jakarta.validation.ConstraintDefinitionException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
@@ -27,6 +27,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -111,6 +112,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         ProblemType problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
         String detail = String.format("O recurso '%s', que você tentou acessar, é inexistente.", ex.getRequestURL());
+        Problem problem = createProblemBuilder((HttpStatus) status, problemType, detail)
+                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .build();
+        return handleExceptionInternal(ex, problem, headers, status, request);
+    }
+    @Override
+    protected ResponseEntity<Object> handleNoResourceFoundException(NoResourceFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        ProblemType problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
+        String detail = String.format("O recurso '%s', que você tentou acessar, é inexistente.", ex.getResourcePath());
         Problem problem = createProblemBuilder((HttpStatus) status, problemType, detail)
                 .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
                 .build();

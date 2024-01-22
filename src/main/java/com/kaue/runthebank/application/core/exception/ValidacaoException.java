@@ -1,4 +1,4 @@
-package com.kaue.runthebank.config.exception;
+package com.kaue.runthebank.application.core.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

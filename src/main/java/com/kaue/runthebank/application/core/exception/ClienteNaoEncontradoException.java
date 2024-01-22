@@ -1,4 +1,4 @@
-package com.kaue.runthebank.config.exception;
+package com.kaue.runthebank.application.core.exception;
 
 public class ClienteNaoEncontradoException extends EntidadeNaoEncontradaException {
     public static final String MSG_CLIENTE_NAO_ENCONTRADO = "Não existe um cadastro de cliente com id '%d'";

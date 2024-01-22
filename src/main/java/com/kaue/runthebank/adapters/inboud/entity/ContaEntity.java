@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity(name = "conta")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -27,7 +28,13 @@ public class ContaEntity {
     @CreationTimestamp
     private OffsetDateTime dataCadastro;
 
-    @JoinColumn(name = "cliente_id", nullable = false)
-    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private ClienteEntity cliente;
+
+    @OneToMany(mappedBy = "contaRemetente")
+    private List<PagamentoEntity> pagamentosEnviadas;
+
+    @OneToMany(mappedBy = "contaDestinataria")
+    private List<PagamentoEntity> pagamentosRecebidas;
 }

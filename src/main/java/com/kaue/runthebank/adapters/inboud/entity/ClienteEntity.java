@@ -21,6 +21,7 @@ public class ClienteEntity {
     private String nome;
     private String endereco;
     private String senha;
+    private String celular;
     private String documento;
     @Enumerated(EnumType.STRING)
     private TipoDocumento tipoDocumento;

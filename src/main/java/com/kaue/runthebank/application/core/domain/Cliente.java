@@ -18,6 +18,7 @@ public class Cliente {
     private String nome;
     private String endereco;
     private String senha;
+    private String celular;
     private String documento;
     private TipoDocumento tipoDocumento;
     private OffsetDateTime dataCadastro;

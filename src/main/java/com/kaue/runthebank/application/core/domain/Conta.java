@@ -4,8 +4,6 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
@@ -19,7 +17,6 @@ public class Conta {
     private BigDecimal saldo;
     private StatusConta status;
     private OffsetDateTime dataCadastro;
-    private Set<Transacao> transacoes = new HashSet<>();
 
     public boolean temSaldoSuficiente(BigDecimal valorDebito) {
         return valorDebito.compareTo(saldo) <= 0;

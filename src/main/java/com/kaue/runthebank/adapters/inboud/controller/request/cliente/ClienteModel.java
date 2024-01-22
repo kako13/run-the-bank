@@ -22,6 +22,8 @@ public class ClienteModel {
     private String endereco;
     private String senha;
     @JsonView({ClienteView.Resumo.class, ClienteView.Cadastro.class})
+    private String celular;
+    @JsonView({ClienteView.Resumo.class, ClienteView.Cadastro.class})
     private TipoDocumento tipoDocumento;
     @JsonView(ClienteView.Resumo.class)
     private String documento;

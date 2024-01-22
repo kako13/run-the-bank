@@ -1,6 +1,6 @@
 package com.kaue.runthebank.adapters.inboud.controller.request.pagamento;
 
-import com.kaue.runthebank.application.core.domain.Conta;
+import com.kaue.runthebank.adapters.inboud.controller.request.conta.ContaModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +12,8 @@ import java.time.OffsetDateTime;
 public class PagamentoModel {
     private Long id;
     private BigDecimal valor;
-    private Conta contaDestinataria;
-    private Conta contaRemetente;
+    private ContaModel contaDestinataria;
+    private ContaModel contaRemetente;
     private OffsetDateTime dataPagamento;
     private String codigoPagamento;
 }

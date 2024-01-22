@@ -1,4 +1,4 @@
-package com.kaue.runthebank.application.ports.out;
+package com.kaue.runthebank.application.ports.out.conta;
 
 import com.kaue.runthebank.application.core.domain.Conta;
 

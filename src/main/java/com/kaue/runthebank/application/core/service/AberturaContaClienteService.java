@@ -2,7 +2,7 @@ package com.kaue.runthebank.application.core.service;
 
 import com.kaue.runthebank.application.core.domain.Conta;
 import com.kaue.runthebank.application.ports.in.conta.AberturaContaClienteServicePort;
-import com.kaue.runthebank.application.ports.out.CadastroContaPort;
+import com.kaue.runthebank.application.ports.out.conta.CadastroContaPort;
 
 public class AberturaContaClienteService implements AberturaContaClienteServicePort {
 

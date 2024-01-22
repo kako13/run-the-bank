@@ -6,7 +6,7 @@ import com.kaue.runthebank.application.ports.out.cliente.ConsultaClientePort;
 
 public class ConsultaClienteService implements ConsultaClienteServicePort {
 
-    private ConsultaClientePort consultaClientePort;
+    private final ConsultaClientePort consultaClientePort;
 
     public ConsultaClienteService(ConsultaClientePort consultaClientePort) {
         this.consultaClientePort = consultaClientePort;

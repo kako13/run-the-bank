@@ -1,17 +1,17 @@
 package com.kaue.runthebank.config;
 
 import com.kaue.runthebank.adapters.outbound.CadastroClienteDataBaseAdapter;
-import com.kaue.runthebank.adapters.outbound.ConsultaClienteDataBaseAdapter;
 import com.kaue.runthebank.adapters.outbound.CadastroContaDataBaseAdapter;
+import com.kaue.runthebank.adapters.outbound.ConsultaClienteDataBaseAdapter;
 import com.kaue.runthebank.adapters.outbound.ConsultaContaDataBaseAdapter;
 import com.kaue.runthebank.application.core.service.AberturaContaClienteService;
 import com.kaue.runthebank.application.core.service.CadastroClienteService;
 import com.kaue.runthebank.application.core.service.ConsultaClienteService;
 import com.kaue.runthebank.application.core.service.ConsultaContaClienteService;
-import com.kaue.runthebank.application.ports.in.conta.AberturaContaClienteServicePort;
-import com.kaue.runthebank.application.ports.in.conta.ConsultaContaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.cliente.CadastroClienteServicePort;
 import com.kaue.runthebank.application.ports.in.cliente.ConsultaClienteServicePort;
+import com.kaue.runthebank.application.ports.in.conta.AberturaContaClienteServicePort;
+import com.kaue.runthebank.application.ports.in.conta.ConsultaContaClienteServicePort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

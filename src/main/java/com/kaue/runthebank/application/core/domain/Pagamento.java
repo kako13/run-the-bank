@@ -1,6 +1,9 @@
 package com.kaue.runthebank.application.core.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -13,7 +16,7 @@ public class Pagamento {
     @EqualsAndHashCode.Include
     private Long id;
     private BigDecimal valor;
-    private Conta contaDestinataria;
+    private Conta contaDestinatario;
     private Conta contaRemetente;
     private OffsetDateTime dataPagamento;
     private String codigoPagamento;

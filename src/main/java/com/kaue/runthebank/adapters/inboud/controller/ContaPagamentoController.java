@@ -32,7 +32,7 @@ public class ContaPagamentoController {
     private PagamentoMapper pagamentoMapper;
 
     @PostMapping
-    @JsonView(PagamentoView.Resumo.class)
+    @JsonView(PagamentoView.Detalhe.class)
     @ResponseStatus(HttpStatus.CREATED)
     public PagamentoModel efetuar(@PathVariable Long contaRemetenteId,
                                         @RequestBody @Valid PagamentoInput pagamentoInput) {
@@ -51,14 +51,13 @@ public class ContaPagamentoController {
         return pagamentoMapper.toModel(pagamentoContaServicePort.transferirValor(pagamento));
     }
     @GetMapping
-    @JsonView(PagamentoView.Listagem.class)
+    @JsonView(PagamentoView.Resumo.class)
     public List<PagamentoModel> listar(@PathVariable Long contaRemetenteId) {
         return pagamentoMapper.toCollectionModel(consultaPagamentoContaServicePort.listar(contaRemetenteId));
     }
     @GetMapping("/{codigoPagamento}")
-    @JsonView(PagamentoView.Resumo.class)
+    @JsonView(PagamentoView.Detalhe.class)
     public PagamentoModel buscar(@PathVariable Long contaRemetenteId, @PathVariable String codigoPagamento) {
-        consultaContaClienteServicePort.buscar(contaRemetenteId);
         Pagamento buscar = consultaPagamentoContaServicePort.buscarPorCodigoEConta(codigoPagamento, contaRemetenteId);
         return pagamentoMapper.toModel(buscar);
     }

@@ -14,14 +14,14 @@ import java.time.OffsetDateTime;
 @Setter
 public class PagamentoModel {
     private Long id;
-    @JsonView({PagamentoView.Resumo.class, PagamentoView.Listagem.class, EstornoView.Resumo.class})
+    @JsonView({PagamentoView.Detalhe.class, PagamentoView.Resumo.class, EstornoView.Detalhe.class, EstornoView.Resumo.class})
     private BigDecimal valor;
-    @JsonView({PagamentoView.Resumo.class})
+    @JsonView({PagamentoView.Detalhe.class})
     private ContaModel contaRemetente;
-    @JsonView({PagamentoView.Resumo.class})
+    @JsonView({PagamentoView.Detalhe.class, EstornoView.Detalhe.class})
     private ContaModel contaDestinatario;
-    @JsonView({PagamentoView.Resumo.class, PagamentoView.Listagem.class, EstornoView.Resumo.class})
+    @JsonView({PagamentoView.Detalhe.class, PagamentoView.Resumo.class, EstornoView.Detalhe.class, EstornoView.Resumo.class})
     private OffsetDateTime dataPagamento;
-    @JsonView({PagamentoView.Resumo.class, PagamentoView.Listagem.class, EstornoView.Resumo.class})
+    @JsonView({PagamentoView.Detalhe.class, PagamentoView.Resumo.class, EstornoView.Detalhe.class, EstornoView.Resumo.class})
     private String codigoPagamento;
 }

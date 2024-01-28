@@ -14,21 +14,21 @@ import java.util.Set;
 @Getter
 @Setter
 public class ClienteModel {
-    @JsonView({ClienteView.Resumo.class, ClienteView.Cadastro.class})
+    @JsonView({ClienteView.Detalhe.class, ClienteView.Cadastro.class})
     private Long id;
-    @JsonView({ClienteView.Resumo.class, ClienteView.Cadastro.class})
+    @JsonView({ClienteView.Detalhe.class, ClienteView.Cadastro.class})
     private String nome;
-    @JsonView(ClienteView.Resumo.class)
+    @JsonView(ClienteView.Detalhe.class)
     private String endereco;
     private String senha;
-    @JsonView({ClienteView.Resumo.class, ClienteView.Cadastro.class})
+    @JsonView({ClienteView.Detalhe.class, ClienteView.Cadastro.class})
     private String celular;
-    @JsonView({ClienteView.Resumo.class, ClienteView.Cadastro.class})
+    @JsonView({ClienteView.Detalhe.class, ClienteView.Cadastro.class})
     private TipoDocumento tipoDocumento;
-    @JsonView(ClienteView.Resumo.class)
+    @JsonView(ClienteView.Detalhe.class)
     private String documento;
-    @JsonView({ClienteView.Resumo.class, ClienteView.Cadastro.class})
+    @JsonView({ClienteView.Detalhe.class, ClienteView.Cadastro.class})
     private OffsetDateTime dataCadastro;
-    @JsonView(ClienteView.Resumo.class)
+    @JsonView(ClienteView.Detalhe.class)
     private Set<ContaModel> contas = new HashSet<>();
 }

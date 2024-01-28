@@ -33,7 +33,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    @JsonView(ClienteView.Resumo.class)
+    @JsonView(ClienteView.Detalhe.class)
     public ClienteModel buscar(@PathVariable Long clienteId) {
         Cliente cliente = consultaClienteServicePort.buscar(clienteId);
         return clienteMapper.toModel(cliente);

@@ -13,6 +13,7 @@ public class ClienteTestData {
                 .nome("João")
                 .documento("123.456.789-01")
                 .endereco("Rua A")
+                .celular("13986534218")
                 .senha("senha123")
                 .contas(Set.of(ContaTestData.umaContaAtivaExistente().build()));
     }    public static Cliente.ClienteBuilder umClienteNovo() {
@@ -21,6 +22,7 @@ public class ClienteTestData {
                 .documento("123.456.789-01")
                 .tipoDocumento(TipoDocumento.CPF)
                 .endereco("Rua A")
+                .celular("13986534218")
                 .senha("senha123")
                 .contas(Set.of(ContaTestData.umaContaAtivaExistente().build()));
     }

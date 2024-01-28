@@ -4,24 +4,24 @@ import com.kaue.runthebank.application.core.domain.Conta;
 import com.kaue.runthebank.application.core.domain.Pagamento;
 import com.kaue.runthebank.application.core.exception.ContaInativaException;
 import com.kaue.runthebank.application.core.exception.NegocioException;
+import com.kaue.runthebank.application.ports.in.conta.ConsultaContaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.pagamento.PagamentoContaServicePort;
-import com.kaue.runthebank.application.ports.out.conta.ConsultaContaPort;
 import com.kaue.runthebank.application.ports.out.pagamento.PagamentoPort;
 
 public class PagamentoContaService implements PagamentoContaServicePort {
     private final PagamentoPort pagamentoPort;
-    private final ConsultaContaPort consultaContaPort;
+    private final ConsultaContaClienteServicePort consultaContaClienteServicePort;
 
     public PagamentoContaService(PagamentoPort pagamentoPort,
-                                 ConsultaContaPort consultaContaPort) {
+                                 ConsultaContaClienteServicePort consultaContaClienteServicePort) {
         this.pagamentoPort = pagamentoPort;
-        this.consultaContaPort = consultaContaPort;
+        this.consultaContaClienteServicePort = consultaContaClienteServicePort;
     }
 
     @Override
     public Pagamento transferirValor(Pagamento pagamento) {
-        Conta contaRemetente = consultaContaPort.buscar(pagamento.getContaRemetente().getId());
-        Conta contaDestinatario = consultaContaPort.buscar(pagamento.getContaDestinatario().getId());
+        Conta contaRemetente = consultaContaClienteServicePort.buscar(pagamento.getContaRemetente().getId());
+        Conta contaDestinatario = consultaContaClienteServicePort.buscar(pagamento.getContaDestinatario().getId());
         pagamento.setContaRemetente(contaRemetente);
         pagamento.setContaDestinatario(contaDestinatario);
 

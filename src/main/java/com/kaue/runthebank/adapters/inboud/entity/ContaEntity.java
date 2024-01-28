@@ -35,6 +35,9 @@ public class ContaEntity {
     @OneToMany(mappedBy = "contaRemetente")
     private List<PagamentoEntity> pagamentosEnviadas;
 
-    @OneToMany(mappedBy = "contaDestinataria")
+    @OneToMany(mappedBy = "contaDestinatario")
     private List<PagamentoEntity> pagamentosRecebidas;
+
+    @OneToMany(mappedBy = "contaRemetente")
+    private List<EstornoEntity> estornos;
 }

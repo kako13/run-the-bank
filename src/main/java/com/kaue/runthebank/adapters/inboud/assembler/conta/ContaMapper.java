@@ -33,6 +33,6 @@ public interface ContaMapper {
     List<Conta> toCollectionDomain(List<ContaEntity> contasEntity);
 
     @Mapping(target = "id", ignore = true)
-    void updateContaFromDomain(@MappingTarget ContaEntity contaEntity, Conta conta);
+    void updateContaEntityFromDomain(@MappingTarget ContaEntity contaEntity, Conta conta);
 
 }

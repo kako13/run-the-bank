@@ -6,7 +6,6 @@ import com.kaue.runthebank.adapters.inboud.controller.request.conta.ContaInput;
 import com.kaue.runthebank.adapters.inboud.controller.request.conta.ContaModel;
 import com.kaue.runthebank.adapters.inboud.controller.request.view.ContaView;
 import com.kaue.runthebank.application.core.domain.Conta;
-import com.kaue.runthebank.application.ports.in.cliente.ConsultaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.conta.AberturaContaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.conta.ConsultaContaClienteServicePort;
 import jakarta.validation.Valid;
@@ -20,12 +19,9 @@ import java.util.List;
 @RequestMapping("/clientes/{clienteId}/contas")
 public class ClienteContaController {
     @Autowired
-    private ConsultaClienteServicePort consultaClienteServicePort;
-    @Autowired
     private ConsultaContaClienteServicePort consultaContaClienteServicePort;
     @Autowired
     private AberturaContaClienteServicePort aberturaContaClienteServicePort;
-
     @Autowired
     private ContaMapper contaMapper;
 
@@ -39,9 +35,8 @@ public class ClienteContaController {
     }
 
     @GetMapping
-    @JsonView(ContaView.Listagem.class)
+    @JsonView(ContaView.Resumo.class)
     public List<ContaModel> listar(@PathVariable Long clienteId) {
-        consultaClienteServicePort.buscar(clienteId);
         List<Conta> conta = consultaContaClienteServicePort.listar(clienteId);
         return contaMapper.toCollectionModel(conta);
     }

@@ -14,4 +14,6 @@ public class Movimento {
     private Long id;
     private TipoMovimento tipoMovimento;
     private BigDecimal valor;
+    private Conta conta;
+    private Pagamento pagamento;
 }

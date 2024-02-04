@@ -5,6 +5,7 @@ import com.kaue.runthebank.application.core.domain.StatusConta;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 
 public class ContaTestData {
 
@@ -14,6 +15,7 @@ public class ContaTestData {
                 .agencia("09852-2")
                 .status(StatusConta.ATIVA)
                 .dataCadastro(OffsetDateTime.now())
+                .movimentos(new HashSet<>())
                 .saldo(BigDecimal.valueOf(2));
     }
     public static Conta.ContaBuilder umaContaInativaNova() {
@@ -21,6 +23,7 @@ public class ContaTestData {
                 .agencia("09852-2")
                 .status(StatusConta.INATIVA)
                 .dataCadastro(OffsetDateTime.now())
+                .movimentos(new HashSet<>())
                 .saldo(BigDecimal.valueOf(1000.50));
     }
 }

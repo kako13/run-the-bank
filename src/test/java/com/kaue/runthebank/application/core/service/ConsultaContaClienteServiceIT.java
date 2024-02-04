@@ -47,7 +47,7 @@ class ConsultaContaClienteServiceIT {
         Conta conta = consultaContaClienteService.buscar(cliente.getId(), this.conta.getId());
         Assertions.assertThat(conta)
                 .isNotNull()
-                .hasNoNullFieldsOrPropertiesExcept("transacoes");
+                .hasNoNullFieldsOrPropertiesExcept("movimentos");
     }
 
     private void prepararDados() {

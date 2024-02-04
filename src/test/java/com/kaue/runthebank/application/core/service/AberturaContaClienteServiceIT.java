@@ -39,7 +39,7 @@ class AberturaContaClienteServiceIT {
         Conta conta = aberturaContaClienteService.abrirConta(cliente.getId(), contaDomain);
         Assertions.assertThat(conta)
                 .isNotNull()
-                .hasNoNullFieldsOrPropertiesExcept("transacoes");
+                .hasNoNullFieldsOrPropertiesExcept("movimentos");
     }
 
     private void prepararDados() {

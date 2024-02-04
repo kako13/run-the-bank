@@ -8,6 +8,7 @@ import com.kaue.runthebank.application.ports.in.conta.AberturaContaClienteServic
 import com.kaue.runthebank.application.ports.in.conta.ConsultaContaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.estorno.ConsultaEstornoPagamentoContaServicePort;
 import com.kaue.runthebank.application.ports.in.estorno.EstornoPagamentoContaServicePort;
+import com.kaue.runthebank.application.ports.in.movimento.MovimentoContaServicePort;
 import com.kaue.runthebank.application.ports.in.pagamento.ConsultaPagamentoContaServicePort;
 import com.kaue.runthebank.application.ports.in.pagamento.PagamentoContaServicePort;
 import org.springframework.context.annotation.Bean;
@@ -39,8 +40,9 @@ public class Config {
     }
     @Bean
     public PagamentoContaServicePort pagamentoContaService(PagamentoDataBaseAdapter pagamentoDataBaseAdapter,
-                                                           ConsultaContaClienteServicePort consultaContaClienteServicePort) {
-        return new PagamentoContaService(pagamentoDataBaseAdapter, consultaContaClienteServicePort);
+                                                           ConsultaContaClienteServicePort consultaContaClienteServicePort,
+                                                           MovimentoContaServicePort movimentoContaServicePort) {
+        return new PagamentoContaService(pagamentoDataBaseAdapter, consultaContaClienteServicePort, movimentoContaServicePort);
     }
     @Bean
     public ConsultaPagamentoContaServicePort consultaPagamentoContaService(ConsultaPagamentoDataBaseAdapter
@@ -49,13 +51,17 @@ public class Config {
     }
     @Bean
     public EstornoPagamentoContaServicePort estornoPagamentoContaService(
-            EstornoPagamentoDataBaseAdapter estornoPagamentoDataBaseAdapter,
-            ConsultaEstornoPagamentoDataBaseAdapter consultaEstornoPagamentoDataBaseAdapter) {
-        return new EstornoPagamentoContaService(estornoPagamentoDataBaseAdapter, consultaEstornoPagamentoDataBaseAdapter);
+                                        EstornoPagamentoDataBaseAdapter estornoPagamentoDataBaseAdapter,
+                                        MovimentoContaServicePort movimentoContaServicePort) {
+        return new EstornoPagamentoContaService(estornoPagamentoDataBaseAdapter, movimentoContaServicePort);
     }
     @Bean
     public ConsultaEstornoPagamentoContaServicePort consultaEstornoPagamentoContaService(
             ConsultaEstornoPagamentoDataBaseAdapter consultaEstornoPagamentoDataBaseAdapter) {
         return new ConsultaEstornoPagamentoContaService(consultaEstornoPagamentoDataBaseAdapter);
+    }
+    @Bean
+    public MovimentoContaServicePort movimentoService(MovimentoContaContaDataBaseAdapter movimentoContaDataBaseAdapter) {
+        return new MovimentoContaContaService(movimentoContaDataBaseAdapter);
     }
 }

@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface ConsultaPagamentoPort {
     List<Pagamento> listar(Long contaId);
-    Optional<Pagamento> buscar(String codigoPagamento);
     Optional<Pagamento> buscarPorCodigoEConta(String codigoPagamento, Long contaId);
 }

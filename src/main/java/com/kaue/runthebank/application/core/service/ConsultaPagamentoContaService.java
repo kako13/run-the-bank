@@ -22,13 +22,6 @@ public class ConsultaPagamentoContaService implements ConsultaPagamentoContaServ
     }
 
     @Override
-    public Pagamento buscar(String codigoPagamento) {
-        return consultaPagamentoPort.buscar(codigoPagamento)
-                .orElseThrow(() -> new NegocioException(String.format(
-                        MSG_PAGAMENTO_NAO_ENCONTRADO, codigoPagamento)));
-    }
-
-    @Override
     public Pagamento buscarPorCodigoEConta(String codigoPagamento, Long contaId) {
         return consultaPagamentoPort.buscarPorCodigoEConta(codigoPagamento, contaId)
                 .orElseThrow(() -> new NegocioException(String.format(

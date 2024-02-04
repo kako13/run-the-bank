@@ -16,7 +16,7 @@ public class PagamentoModel {
     private Long id;
     @JsonView({PagamentoView.Detalhe.class, PagamentoView.Resumo.class, EstornoView.Detalhe.class, EstornoView.Resumo.class})
     private BigDecimal valor;
-    @JsonView({PagamentoView.Detalhe.class})
+    @JsonView({PagamentoView.Detalhe.class, EstornoView.Detalhe.class})
     private ContaModel contaRemetente;
     @JsonView({PagamentoView.Detalhe.class, EstornoView.Detalhe.class})
     private ContaModel contaDestinatario;

@@ -1,5 +1,6 @@
 package com.kaue.runthebank.adapters.inboud.assembler.cliente;
 
+import com.kaue.runthebank.adapters.inboud.assembler.conta.ContaMapper;
 import com.kaue.runthebank.adapters.inboud.controller.request.cliente.ClienteInput;
 import com.kaue.runthebank.adapters.inboud.controller.request.cliente.ClienteModel;
 import com.kaue.runthebank.adapters.inboud.entity.ClienteEntity;
@@ -9,7 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = ContaMapper.class)
 public interface ClienteMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -24,5 +25,6 @@ public interface ClienteMapper {
     ClienteModel toModel(Cliente cliente);
 
     ClienteEntity toEntity(Cliente cliente);
+    @Mapping(target = "contas.cliente", ignore = true)
     Cliente toDomainObject(ClienteEntity clienteEntity);
 }

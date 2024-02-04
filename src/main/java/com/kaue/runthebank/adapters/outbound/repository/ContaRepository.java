@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface ContaRepository extends JpaRepository<ContaEntity, Long> {
     ContaEntity findByIdAndClienteId(Long contaId, Long clienteId);
-    List<ContaEntity> findAllByClienteId(Long clienteId);
 }

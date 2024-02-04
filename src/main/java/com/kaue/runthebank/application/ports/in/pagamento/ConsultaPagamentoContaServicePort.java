@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface ConsultaPagamentoContaServicePort {
     List<Pagamento> listar(Long contaId);
-    Pagamento buscar(String codigoPagamento);
     Pagamento buscarPorCodigoEConta(String codigoPagamento, Long contaId);
 }

@@ -36,7 +36,6 @@ public class ConsultaContaClienteService implements ConsultaContaClienteServiceP
 
     @Override
     public List<Conta> listar(Long clienteId) {
-        consultaClienteServicePort.buscar(clienteId);
-        return consultaContaPort.listar(clienteId);
+        return consultaClienteServicePort.buscar(clienteId).getContas().stream().toList();
     }
 }

@@ -38,6 +38,7 @@ public class PagamentoDataBaseAdapter implements PagamentoPort {
         PagamentoEntity pagamentoEntity = pagamentoMapper.toEntity(pagamento);
         montarPagamentoEntity(pagamento, contaRemetenteEntity, contaDestinatarioEntity, pagamentoEntity);
         pagamentoEntity = pagamentoRepository.save(pagamentoEntity);
+        pagamentoRepository.flush();
         enviarNotificacao(pagamentoEntity);
         return pagamentoMapper.toDomainObject(pagamentoEntity);
     }
@@ -47,6 +48,7 @@ public class PagamentoDataBaseAdapter implements PagamentoPort {
         contaMapper.updateContaEntityFromDomain(contaDestinatarioEntity, pagamento.getContaDestinatario());
         pagamentoEntity.setContaRemetente(contaRemetenteEntity);
         pagamentoEntity.setContaDestinatario(contaDestinatarioEntity);
+        pagamentoEntity.setEstornado(Boolean.FALSE);
     }
 
     private void enviarNotificacao(PagamentoEntity pagamentoPersistido) {

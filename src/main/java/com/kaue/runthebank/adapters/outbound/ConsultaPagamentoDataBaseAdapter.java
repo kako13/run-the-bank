@@ -25,14 +25,9 @@ public class ConsultaPagamentoDataBaseAdapter implements ConsultaPagamentoPort {
     }
 
     @Override
-    public Optional<Pagamento> buscar(String codigoPagamento) {
-        PagamentoEntity pagamentoEntity = pagamentoRepository.findByCodigoPagamento(codigoPagamento);
-        return Optional.ofNullable(pagamentoMapper.toDomainObject(pagamentoEntity));
-    }
-
-    @Override
     public Optional<Pagamento> buscarPorCodigoEConta(String codigoPagamento, Long contaId) {
-        PagamentoEntity pagamentoEntity = pagamentoRepository.findByCodigoPagamentoAndContaRemetenteId(codigoPagamento, contaId);
+        PagamentoEntity pagamentoEntity = pagamentoRepository
+                .findByCodigoPagamentoAndContaRemetenteWithContas(codigoPagamento, contaId);
         return Optional.ofNullable(pagamentoMapper.toDomainObject(pagamentoEntity));
     }
 }

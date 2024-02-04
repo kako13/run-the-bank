@@ -31,10 +31,4 @@ public class ConsultaContaDataBaseAdapter implements ConsultaContaPort {
         ContaEntity contaEntity = contaRepository.findById(contaId).orElseThrow();
         return Optional.ofNullable(contaMapper.toDomainObject(contaEntity));
     }
-
-    @Override
-    public List<Conta> listar(Long clienteId) {
-        List<ContaEntity> contasEntity = contaRepository.findAllByClienteId(clienteId);
-        return contaMapper.toCollectionDomain(contasEntity);
-    }
 }

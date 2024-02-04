@@ -2,6 +2,7 @@ package com.kaue.runthebank.adapters.outbound.repository;
 
 import com.kaue.runthebank.adapters.inboud.entity.PagamentoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,6 +11,10 @@ import java.util.List;
 public interface PagamentoRepository extends JpaRepository<PagamentoEntity, Long> {
     List<PagamentoEntity> findAllByContaRemetenteId(Long contaId);
 
-    PagamentoEntity findByCodigoPagamento(String codigoPagamento);
-    PagamentoEntity findByCodigoPagamentoAndContaRemetenteId(String codigoPagamento, Long contaId);
+    @Query("from pagamento p " +
+            "left join fetch p.contaRemetente cr " +
+            "left join fetch p.contaDestinatario " +
+            "where p.codigoPagamento = :codigoPagamento " +
+            "and cr.id = :contaId")
+    PagamentoEntity findByCodigoPagamentoAndContaRemetenteWithContas(String codigoPagamento, Long contaId);
 }

@@ -20,4 +20,9 @@ public class Pagamento {
     private Conta contaRemetente;
     private OffsetDateTime dataPagamento;
     private String codigoPagamento;
+    private Boolean estornado;
+
+    public Boolean foiEstornado() {
+        return getEstornado();
+    }
 }

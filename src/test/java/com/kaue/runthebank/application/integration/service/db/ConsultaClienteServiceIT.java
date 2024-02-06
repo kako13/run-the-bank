@@ -1,4 +1,4 @@
-package com.kaue.runthebank.application.core.service;
+package com.kaue.runthebank.application.integration.service.db;
 
 import com.kaue.runthebank.adapters.inboud.assembler.cliente.ClienteMapper;
 import com.kaue.runthebank.adapters.inboud.assembler.conta.ContaMapper;
@@ -8,6 +8,7 @@ import com.kaue.runthebank.adapters.outbound.repository.ClienteRepository;
 import com.kaue.runthebank.adapters.outbound.repository.ContaRepository;
 import com.kaue.runthebank.application.core.domain.Cliente;
 import com.kaue.runthebank.application.core.domain.Conta;
+import com.kaue.runthebank.application.core.service.ConsultaClienteService;
 import com.kaue.runthebank.application.core.utils.data.ClienteTestData;
 import com.kaue.runthebank.application.core.utils.data.ContaTestData;
 import org.assertj.core.api.Assertions;
@@ -18,10 +19,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 
+import java.util.Set;
+
 @SpringBootTest
 @TestPropertySource("/application-test.properties")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-class ConsultaContaClienteServiceIT {
+class ConsultaClienteServiceIT {
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
@@ -32,7 +35,7 @@ class ConsultaContaClienteServiceIT {
     private ContaMapper contaMapper;
 
     @Autowired
-    private ConsultaContaClienteService consultaContaClienteService;
+    private ConsultaClienteService consultaClienteService;
     private ClienteEntity cliente;
     private Conta contaDomain;
     private ContaEntity conta;
@@ -43,15 +46,18 @@ class ConsultaContaClienteServiceIT {
     }
 
     @Test
-    void consultarConta() {
-        Conta conta = consultaContaClienteService.buscar(cliente.getId(), this.conta.getId());
-        Assertions.assertThat(conta)
+    void consultarCliente() {
+        Cliente clienteDomain = consultaClienteService.buscar(cliente.getId());
+        Set<Conta> contas = clienteDomain.getContas();
+        Assertions.assertThat(contas)
+                        .isNotEmpty();
+        Assertions.assertThat(clienteDomain)
                 .isNotNull()
-                .hasNoNullFieldsOrPropertiesExcept("movimentos");
+                .hasNoNullFieldsOrProperties();
     }
 
     private void prepararDados() {
-        Cliente clienteDomain = ClienteTestData.umClienteNovo().build();
+        Cliente clienteDomain = ClienteTestData.umClienteNovo().documento("459.375.770-35").build();
         ClienteEntity clienteToSave = clienteMapper.toEntity(clienteDomain);
         cliente = clienteRepository.save(clienteToSave);
         contaDomain = ContaTestData.umaContaInativaNova().build();

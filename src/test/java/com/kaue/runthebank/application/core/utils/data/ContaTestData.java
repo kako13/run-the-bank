@@ -18,6 +18,14 @@ public class ContaTestData {
                 .movimentos(new HashSet<>())
                 .saldo(BigDecimal.valueOf(2));
     }
+    public static Conta.ContaBuilder umaContaAtivaNova() {
+        return Conta.builder()
+                .agencia("09852-2")
+                .status(StatusConta.ATIVA)
+                .dataCadastro(OffsetDateTime.now())
+                .movimentos(new HashSet<>())
+                .saldo(BigDecimal.valueOf(200));
+    }
     public static Conta.ContaBuilder umaContaInativaNova() {
         return Conta.builder()
                 .agencia("09852-2")

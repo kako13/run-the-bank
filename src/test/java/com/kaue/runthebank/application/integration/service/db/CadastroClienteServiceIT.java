@@ -1,6 +1,7 @@
-package com.kaue.runthebank.application.core.service;
+package com.kaue.runthebank.application.integration.service.db;
 
 import com.kaue.runthebank.application.core.domain.Cliente;
+import com.kaue.runthebank.application.core.service.CadastroClienteService;
 import com.kaue.runthebank.application.core.utils.data.ClienteTestData;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +33,6 @@ class CadastroClienteServiceIT {
     }
 
     private void prepararDados() {
-        clienteDomain = ClienteTestData.umClienteNovo().build();
+        clienteDomain = ClienteTestData.umClienteNovo().documento("996.826.940-94").build();
     }
 }

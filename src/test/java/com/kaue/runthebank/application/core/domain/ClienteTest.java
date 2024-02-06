@@ -1,9 +1,12 @@
 package com.kaue.runthebank.application.core.domain;
 
 import com.kaue.runthebank.application.core.utils.data.ClienteTestData;
+import com.kaue.runthebank.application.core.utils.data.ContaTestData;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Set;
 
 class ClienteTest {
     private Cliente cliente;
@@ -24,6 +27,11 @@ class ClienteTest {
     }
 
     private void prepararDados() {
-        cliente = ClienteTestData.umClienteExistente().build();
+        cliente = ClienteTestData
+                .umClienteExistente()
+                .contas(Set.of(ContaTestData
+                        .umaContaAtivaExistente()
+                        .build()))
+                .build();
     }
 }

@@ -3,18 +3,26 @@ package com.kaue.runthebank.application.core.service;
 import com.kaue.runthebank.application.core.domain.*;
 import com.kaue.runthebank.application.core.exception.ContaInativaException;
 import com.kaue.runthebank.application.core.exception.NegocioException;
+import com.kaue.runthebank.application.ports.in.conta.ConsultaContaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.estorno.EstornoPagamentoContaServicePort;
 import com.kaue.runthebank.application.ports.in.movimento.MovimentoContaServicePort;
+import com.kaue.runthebank.application.ports.out.NotificacaoClienteEventPort;
 import com.kaue.runthebank.application.ports.out.estorno.EstornoPagamentoPort;
 
 public class EstornoPagamentoContaService implements EstornoPagamentoContaServicePort {
     private final EstornoPagamentoPort estornoPagamentoPort;
     private final MovimentoContaServicePort movimentoContaServicePort;
+    private final NotificacaoClienteEventPort notificacaoClienteEventPort;
+    private final ConsultaContaClienteServicePort consultaContaClienteServicePort;
 
     public EstornoPagamentoContaService(EstornoPagamentoPort estornoPagamentoPort,
-                                        MovimentoContaServicePort movimentoContaServicePort) {
+                                        MovimentoContaServicePort movimentoContaServicePort,
+                                        NotificacaoClienteEventPort notificacaoClienteEventPort,
+                                        ConsultaContaClienteServicePort consultaContaClienteServicePort) {
         this.estornoPagamentoPort = estornoPagamentoPort;
         this.movimentoContaServicePort = movimentoContaServicePort;
+        this.notificacaoClienteEventPort = notificacaoClienteEventPort;
+        this.consultaContaClienteServicePort = consultaContaClienteServicePort;
     }
 
     private static void validarStatusContas(Conta contaRemetente, Conta contaDestinatario) {
@@ -28,8 +36,10 @@ public class EstornoPagamentoContaService implements EstornoPagamentoContaServic
     public Estorno estornarPagamento(Pagamento pagamento) {
         validaCondicaoParaEstorno(pagamento);
 
-        Conta contaRemetente = pagamento.getContaRemetente();
-        Conta contaDestinatario = pagamento.getContaDestinatario();
+        Conta contaRemetente = consultaContaClienteServicePort.buscar(pagamento.getContaRemetente().getId());
+        Conta contaDestinatario = consultaContaClienteServicePort.buscar(pagamento.getContaDestinatario().getId());
+        pagamento.setContaRemetente(contaRemetente);
+        pagamento.setContaDestinatario(contaDestinatario);
 
         validarStatusContas(contaRemetente, contaDestinatario);
 
@@ -46,6 +56,8 @@ public class EstornoPagamentoContaService implements EstornoPagamentoContaServic
         movimentoContaServicePort.gerarMovimentoDebito(estornoRegistrado.getPagamento(), contaRemetente);
         movimentoContaServicePort.gerarMovimentoCredito(estornoRegistrado.getPagamento(), contaDestinatario);
 
+        notificacaoClienteEventPort.notificarEstorno(
+                estornoRegistrado, contaRemetente.getCliente(), contaDestinatario.getCliente());
         return estornoRegistrado;
     }
 

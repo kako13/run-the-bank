@@ -8,7 +8,6 @@ import com.kaue.runthebank.application.ports.out.conta.ConsultaContaPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -23,12 +22,12 @@ public class ConsultaContaDataBaseAdapter implements ConsultaContaPort {
     @Override
     public Optional<Conta> buscar(Long clienteId, Long contaId) {
         ContaEntity contaEntity = contaRepository.findByIdAndClienteId(contaId, clienteId);
-        return Optional.ofNullable(contaMapper.toDomainObject(contaEntity));
+        return Optional.ofNullable(contaMapper.toDomainObjectWithoutCliente(contaEntity));
     }
 
     @Override
     public Optional<Conta> buscar(Long contaId) {
-        ContaEntity contaEntity = contaRepository.findById(contaId).orElseThrow();
+        ContaEntity contaEntity = contaRepository.findByIdWithCliente(contaId);
         return Optional.ofNullable(contaMapper.toDomainObject(contaEntity));
     }
 }

@@ -29,7 +29,7 @@ public class ClienteContaController {
     @JsonView(ContaView.Cadastro.class)
     @ResponseStatus(HttpStatus.CREATED)
     public ContaModel adicionar(@PathVariable Long clienteId, @RequestBody @Valid ContaInput contaInput) {
-        Conta conta = contaMapper.toDomainObject(contaInput);
+        Conta conta = contaMapper.toDomainObjectWithoutCliente(contaInput);
         Conta novaConta = aberturaContaClienteServicePort.abrirConta(clienteId, conta);
         return contaMapper.toModel(novaConta);
     }

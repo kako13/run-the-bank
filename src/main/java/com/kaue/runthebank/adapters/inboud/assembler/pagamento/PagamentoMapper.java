@@ -18,6 +18,10 @@ import java.util.List;
 public interface PagamentoMapper {
     Pagamento toDomainObject(PagamentoInput pagamentoInput);
     PagamentoEntity toEntity(Pagamento pagamento);
+    @Mapping(target = "contaRemetente.cliente", ignore = true)
+    @Mapping(target = "contaDestinatario.cliente", ignore = true)
+    @Mapping(target = "contaRemetente.movimentos", ignore = true)
+    @Mapping(target = "contaDestinatario.movimentos", ignore = true)
     Pagamento toDomainObject(PagamentoEntity pagamentoEntity);
     @Named("toCollectionDomain")
     @Mapping(target = "contaDestinatario", ignore = true)

@@ -26,7 +26,7 @@ public class CadastroContaDataBaseAdapter implements CadastroContaPort {
     public Conta gerarConta(Cliente cliente, Conta conta) {
         ContaEntity contaEntity = montarContaEntity(conta, cliente);
         contaEntity = contaRepository.save(contaEntity);
-        return contaMapper.toDomainObject(contaEntity);
+        return contaMapper.toDomainObjectWithoutCliente(contaEntity);
     }
 
     private ContaEntity montarContaEntity(Conta conta, Cliente cliente) {

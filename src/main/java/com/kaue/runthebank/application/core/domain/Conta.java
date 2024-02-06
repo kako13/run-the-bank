@@ -19,7 +19,7 @@ public class Conta {
     private BigDecimal saldo;
     private StatusConta status;
     private OffsetDateTime dataCadastro;
-
+    private Cliente cliente;
     private Set<Movimento> movimentos = new HashSet<>();
 
     public boolean temSaldoSuficiente(BigDecimal valorDebito) {

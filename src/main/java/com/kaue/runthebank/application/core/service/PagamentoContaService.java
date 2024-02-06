@@ -7,19 +7,23 @@ import com.kaue.runthebank.application.core.exception.NegocioException;
 import com.kaue.runthebank.application.ports.in.conta.ConsultaContaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.movimento.MovimentoContaServicePort;
 import com.kaue.runthebank.application.ports.in.pagamento.PagamentoContaServicePort;
+import com.kaue.runthebank.application.ports.out.NotificacaoClienteEventPort;
 import com.kaue.runthebank.application.ports.out.pagamento.PagamentoPort;
 
 public class PagamentoContaService implements PagamentoContaServicePort {
     private final PagamentoPort pagamentoPort;
     private final ConsultaContaClienteServicePort consultaContaClienteServicePort;
     private final MovimentoContaServicePort movimentoContaServicePort;
+    private final NotificacaoClienteEventPort notificacaoClienteEventPort;
 
     public PagamentoContaService(PagamentoPort pagamentoPort,
                                  ConsultaContaClienteServicePort consultaContaClienteServicePort,
-                                 MovimentoContaServicePort movimentoContaServicePort) {
+                                 MovimentoContaServicePort movimentoContaServicePort,
+                                 NotificacaoClienteEventPort notificacaoClienteEventPort) {
         this.pagamentoPort = pagamentoPort;
         this.consultaContaClienteServicePort = consultaContaClienteServicePort;
         this.movimentoContaServicePort = movimentoContaServicePort;
+        this.notificacaoClienteEventPort = notificacaoClienteEventPort;
     }
 
     @Override
@@ -40,6 +44,8 @@ public class PagamentoContaService implements PagamentoContaServicePort {
         movimentoContaServicePort.gerarMovimentoDebito(pagamentoRegistrado, contaRemetente);
         movimentoContaServicePort.gerarMovimentoCredito(pagamentoRegistrado, contaDestinatario);
 
+        notificacaoClienteEventPort.notificarPagamento(
+                pagamento, contaRemetente.getCliente(), contaDestinatario.getCliente());
         return pagamentoRegistrado;
     }
 

@@ -19,6 +19,8 @@ public interface EstornoMapper {
     @Mapping(target = "contaDestinatario", ignore = true)
     @Mapping(target = "pagamento.contaRemetente.movimentos", ignore = true)
     @Mapping(target = "pagamento.contaDestinatario.movimentos", ignore = true)
+    @Mapping(target = "pagamento.contaRemetente.cliente", ignore = true)
+    @Mapping(target = "pagamento.contaDestinatario.cliente", ignore = true)
     Estorno toDomainObject(EstornoEntity estornoEntity);
 
     @Named("toCollectionDomain")

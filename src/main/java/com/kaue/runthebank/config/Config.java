@@ -1,8 +1,9 @@
 package com.kaue.runthebank.config;
 
 import com.kaue.runthebank.adapters.outbound.*;
-import com.kaue.runthebank.adapters.outbound.rest.NotificacaoRestAdapter;
+import com.kaue.runthebank.adapters.outbound.rest.NotificacaoClienteRestAdapter;
 import com.kaue.runthebank.application.core.service.*;
+import com.kaue.runthebank.application.ports.in.NotificacaoClienteServicePort;
 import com.kaue.runthebank.application.ports.in.cliente.CadastroClienteServicePort;
 import com.kaue.runthebank.application.ports.in.cliente.ConsultaClienteServicePort;
 import com.kaue.runthebank.application.ports.in.conta.AberturaContaClienteServicePort;
@@ -43,9 +44,9 @@ public class Config {
     public PagamentoContaServicePort pagamentoContaService(PagamentoDataBaseAdapter pagamentoDataBaseAdapter,
                                                            ConsultaContaClienteServicePort consultaContaClienteServicePort,
                                                            MovimentoContaServicePort movimentoContaServicePort,
-                                                           NotificacaoRestAdapter notificacaoRestAdapter) {
+                                                           NotificacaoClienteServicePort notificacaoClienteServicePort) {
         return new PagamentoContaService(pagamentoDataBaseAdapter, consultaContaClienteServicePort,
-                                        movimentoContaServicePort, notificacaoRestAdapter);
+                                        movimentoContaServicePort, notificacaoClienteServicePort);
     }
     @Bean
     public ConsultaPagamentoContaServicePort consultaPagamentoContaService(
@@ -56,10 +57,10 @@ public class Config {
     public EstornoPagamentoContaServicePort estornoPagamentoContaService(
                                         EstornoPagamentoDataBaseAdapter estornoPagamentoDataBaseAdapter,
                                         MovimentoContaServicePort movimentoContaServicePort,
-                                        NotificacaoRestAdapter notificacaoRestAdapter,
-                                        ConsultaContaClienteServicePort consultaContaClienteServicePort) {
+                                        ConsultaContaClienteServicePort consultaContaClienteServicePort,
+                                        NotificacaoClienteServicePort notificacaoClienteServicePort) {
         return new EstornoPagamentoContaService(estornoPagamentoDataBaseAdapter, movimentoContaServicePort,
-                                                notificacaoRestAdapter, consultaContaClienteServicePort);
+                                                consultaContaClienteServicePort, notificacaoClienteServicePort);
     }
     @Bean
     public ConsultaEstornoPagamentoContaServicePort consultaEstornoPagamentoContaService(
@@ -69,5 +70,10 @@ public class Config {
     @Bean
     public MovimentoContaServicePort movimentoService(MovimentoContaContaDataBaseAdapter movimentoContaDataBaseAdapter) {
         return new MovimentoContaContaService(movimentoContaDataBaseAdapter);
+    }
+
+    @Bean
+    public NotificacaoClienteServicePort notificacaoService(NotificacaoClienteRestAdapter notificacaoClienteRestAdapter) {
+        return new NotificacaoClienteService(notificacaoClienteRestAdapter);
     }
 }

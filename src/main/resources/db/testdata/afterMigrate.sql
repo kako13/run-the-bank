@@ -16,14 +16,14 @@ values
 insert into
 conta (agencia, cliente_id, saldo, status, data_cadastro)
 values
-('09452-2', 1, 100, 'ATIVA', CURRENT_TIMESTAMP() AT TIME ZONE 'UTC');
+('004', 1, 100, 'ATIVA', CURRENT_TIMESTAMP() AT TIME ZONE 'UTC');
 
 insert into
 conta (agencia, cliente_id, saldo, status, data_cadastro)
 values
-('07852-2', 1, 500, 'ATIVA', CURRENT_TIMESTAMP() AT TIME ZONE 'UTC');
+('016', 1, 500, 'ATIVA', CURRENT_TIMESTAMP() AT TIME ZONE 'UTC');
 
 insert into
 conta (agencia, cliente_id, saldo, status, data_cadastro)
 values
-('01852-2', 2, 1000, 'ATIVA', CURRENT_TIMESTAMP() AT TIME ZONE 'UTC');
+('256', 2, 1000, 'ATIVA', CURRENT_TIMESTAMP() AT TIME ZONE 'UTC');

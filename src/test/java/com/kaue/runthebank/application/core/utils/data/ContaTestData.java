@@ -12,7 +12,7 @@ public class ContaTestData {
     public static Conta.ContaBuilder umaContaAtivaExistente() {
         return Conta.builder()
                 .id(1L)
-                .agencia("09852-2")
+                .agencia("004")
                 .status(StatusConta.ATIVA)
                 .dataCadastro(OffsetDateTime.now())
                 .movimentos(new HashSet<>())
@@ -20,7 +20,7 @@ public class ContaTestData {
     }
     public static Conta.ContaBuilder umaContaAtivaNova() {
         return Conta.builder()
-                .agencia("09852-2")
+                .agencia("016")
                 .status(StatusConta.ATIVA)
                 .dataCadastro(OffsetDateTime.now())
                 .movimentos(new HashSet<>())
@@ -28,7 +28,7 @@ public class ContaTestData {
     }
     public static Conta.ContaBuilder umaContaInativaNova() {
         return Conta.builder()
-                .agencia("09852-2")
+                .agencia("032")
                 .status(StatusConta.INATIVA)
                 .dataCadastro(OffsetDateTime.now())
                 .movimentos(new HashSet<>())

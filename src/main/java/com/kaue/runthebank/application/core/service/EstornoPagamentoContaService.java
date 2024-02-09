@@ -53,8 +53,8 @@ public class EstornoPagamentoContaService implements EstornoPagamentoContaServic
                 .pagamento(pagamento)
                 .build());
 
-        movimentoContaServicePort.gerarMovimentoDebito(estornoRegistrado.getPagamento(), contaRemetente);
-        movimentoContaServicePort.gerarMovimentoCredito(estornoRegistrado.getPagamento(), contaDestinatario);
+        movimentoContaServicePort.gerarMovimentoDebito(estornoRegistrado.getPagamento(), contaDestinatario);
+        movimentoContaServicePort.gerarMovimentoCredito(estornoRegistrado.getPagamento(), contaRemetente);
 
         notificacaoClienteServicePort.notificarEstorno(
                 estornoRegistrado, contaRemetente.getCliente(), contaDestinatario.getCliente());

@@ -1,4 +1,4 @@
-package com.kaue.runthebank.config;
+package com.kaue.runthebank.config.openapi;
 
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;

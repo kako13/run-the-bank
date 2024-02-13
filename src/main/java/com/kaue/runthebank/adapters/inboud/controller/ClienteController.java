@@ -11,6 +11,7 @@ import com.kaue.runthebank.application.ports.in.cliente.ConsultaClienteServicePo
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -20,12 +21,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import static com.kaue.runthebank.config.openapi.ClientePayloadsExemplos.*;
+import static com.kaue.runthebank.config.openapi.ContaPayloadsExemplos.EXEMPLO_ERRO_DE_SISTEMA;
+
 @Tag(name = "1. Clientes")
 @Slf4j
 @RestController
 @RequestMapping(value = "/clientes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClienteController {
-    public static final String EXEMPLO_CLIENTE = "{\"nome\": \"Juca Oliveira\",\"documento\": \"061.475.180-20\",\"endereco\": \"Rua Camaleao\",\"celular\": \"13988294673\",\"senha\": \"123456\",\"tipoDocumento\": \"cpf\"}";
     @Autowired
     private ClienteMapper clienteMapper;
     @Autowired
@@ -34,15 +37,26 @@ public class ClienteController {
     private CadastroClienteServicePort cadastroClienteServicePort;
 
     @Operation(summary = "Realiza um cadastro de cliente")
-    @ApiResponse(responseCode = "201", description = "Cliente cadastrado com sucesso")
-    @ApiResponse(responseCode = "400", description = "Dados inválidos/Violação de regra de negócio/Mensagem incompreensível")
-    @ApiResponse(responseCode = "404", description = "Recurso não encontrado")
-    @ApiResponse(responseCode = "500", description = "Erro de Sistema")
+    @ApiResponse(responseCode = "201", description = "Cliente cadastrado com sucesso",
+            content = @Content(
+                    schema = @Schema(implementation = ClienteModel.class),
+                    examples = @ExampleObject(EXEMPLO_CLIENTE_CADASTRADO)
+            ))
+    @ApiResponse(responseCode = "400", description = "Dados inválidos/Violação de regra de negócio/Mensagem incompreensível",
+            content = @Content(
+                    schema = @Schema(implementation = ClienteModel.class),
+                    examples = @ExampleObject(EXEMPLO_CLIENTE_DADOS_INVALIDOS)
+            ))
+    @ApiResponse(responseCode = "500", description = "Erro de Sistema",
+            content = @Content(
+                    schema = @Schema(implementation = ClienteModel.class),
+                    examples = @ExampleObject(EXEMPLO_ERRO_DE_SISTEMA)
+            ))
     @PostMapping
     @JsonView(ClienteView.Cadastro.class)
     @ResponseStatus(HttpStatus.CREATED)
     public ClienteModel adicionar(@io.swagger.v3.oas.annotations.parameters.RequestBody(
-            content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = EXEMPLO_CLIENTE)}))
+            content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = EXEMPLO_CLIENTE_INPUT)}))
                                       @RequestBody @Valid ClienteInput clienteInput) {
         log.info("Criando cliente");
         Cliente cliente = clienteMapper.toDomainObject(clienteInput);
@@ -51,10 +65,21 @@ public class ClienteController {
     }
 
     @Operation(summary = "Consulta um cliente")
-    @ApiResponse(responseCode = "200", description = "Consulta de cliente realizada com sucesso")
-    @ApiResponse(responseCode = "400", description = "Dados inválidos/Violação de regra de negócio/Mensagem incompreensível")
-    @ApiResponse(responseCode = "404", description = "Recurso não encontrado")
-    @ApiResponse(responseCode = "500", description = "Erro de Sistema")
+    @ApiResponse(responseCode = "200", description = "Consulta de cliente realizada com sucesso",
+            content = @Content(
+                    schema = @Schema(implementation = ClienteModel.class),
+                    examples = @ExampleObject(EXEMPLO_CLIENTE_CONSULTA)
+            ))
+    @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
+            content = @Content(
+                    schema = @Schema(implementation = ClienteModel.class),
+                    examples = @ExampleObject(EXEMPLO_CLIENTE_NAO_ENCONTRADO)
+            ))
+    @ApiResponse(responseCode = "500", description = "Erro de Sistema",
+            content = @Content(
+                    schema = @Schema(implementation = ClienteModel.class),
+                    examples = @ExampleObject(EXEMPLO_ERRO_DE_SISTEMA)
+            ))
     @GetMapping("/{clienteId}")
     @JsonView(ClienteView.Detalhe.class)
     public ClienteModel buscar(@PathVariable Long clienteId) {

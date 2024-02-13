@@ -17,7 +17,9 @@ public enum ProblemType {
     private final String uri;
 
     ProblemType(String path, String title) {
-        this.uri = "https://run-the-bank.kaue.com"+path;
+//        TODO - ajustar apos determinar um dominio
+//        this.uri = "https://run-the-bank.kaue.com"+path;
+        this.uri = "https://run-the-bank.fly.dev/banking"+path;
         this.title = title;
     }
 }

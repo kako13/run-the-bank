@@ -14,6 +14,7 @@ import com.kaue.runthebank.application.ports.in.pagamento.PagamentoContaServiceP
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -26,12 +27,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 
+import static com.kaue.runthebank.config.openapi.ContaPayloadsExemplos.EXEMPLO_CONTA_NAO_ENCONTRADA;
+import static com.kaue.runthebank.config.openapi.PagamentoPayloadsExemplos.*;
+
 @Tag(name = "3. Pagamentos")
 @Slf4j
 @RestController
 @RequestMapping(value = "/contas/{contaRemetenteId}/pagamentos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ContaPagamentoController {
-    private static final String EXEMPLO_PAGAMENTO = "{\"valor\": 100.00,\"contaRemetenteId\": 4,\"contaDestinatarioId\": 5}";
     @Autowired
     private PagamentoContaServicePort pagamentoContaServicePort;
     @Autowired
@@ -42,15 +45,31 @@ public class ContaPagamentoController {
     private PagamentoMapper pagamentoMapper;
 
     @Operation(summary = "Realiza um pagamento (transferência) de uma conta para outra")
-    @ApiResponse(responseCode = "201", description = "Pagamento realizado com sucesso")
-    @ApiResponse(responseCode = "400", description = "Dados inválidos/Violação de regra de negócio/Mensagem incompreensível")
-    @ApiResponse(responseCode = "404", description = "Recurso não encontrado")
-    @ApiResponse(responseCode = "500", description = "Erro de Sistema")
+    @ApiResponse(responseCode = "201", description = "Pagamento realizado com sucesso",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_PAGAMENTO_CADASTRADO)
+            ))
+    @ApiResponse(responseCode = "400", description = "Dados inválidos/Violação de regra de negócio/Mensagem incompreensível",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_PAGAMENTO_DADOS_INVALIDOS)
+            ))
+    @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_CONTA_NAO_ENCONTRADA)
+            ))
+    @ApiResponse(responseCode = "500", description = "Erro de Sistema",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_ERRO_DE_SISTEMA)
+            ))
     @PostMapping
     @JsonView(PagamentoView.Detalhe.class)
     @ResponseStatus(HttpStatus.CREATED)
     public PagamentoModel efetuar(@io.swagger.v3.oas.annotations.parameters.RequestBody(
-            content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = EXEMPLO_PAGAMENTO)}))
+            content = @Content(mediaType = "application/json", examples = {@ExampleObject(EXEMPLO_PAGAMENTO_INPUT)}))
                                @RequestBody @Valid PagamentoInput pagamentoInput, @PathVariable Long contaRemetenteId) {
         log.info("Realizando pagamento");
         if (!Objects.equals(contaRemetenteId, pagamentoInput.getContaRemetenteId()))
@@ -68,10 +87,21 @@ public class ContaPagamentoController {
     }
 
     @Operation(summary = "Lista a relação de pagamentos realizados por uma conta")
-    @ApiResponse(responseCode = "200", description = "Listagem de pagamentos realizada com sucesso")
-    @ApiResponse(responseCode = "400", description = "Dados inválidos/Violação de regra de negócio/Mensagem incompreensível")
-    @ApiResponse(responseCode = "404", description = "Recurso não encontrado")
-    @ApiResponse(responseCode = "500", description = "Erro de Sistema")
+    @ApiResponse(responseCode = "200", description = "Listagem de pagamentos realizada com sucesso",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_PAGAMENTO_LISTA)
+            ))
+    @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_CONTA_NAO_ENCONTRADA)
+            ))
+    @ApiResponse(responseCode = "500", description = "Erro de Sistema",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_ERRO_DE_SISTEMA)
+            ))
     @GetMapping
     @JsonView(PagamentoView.Resumo.class)
     public List<PagamentoModel> listar(@PathVariable Long contaRemetenteId) {
@@ -80,10 +110,21 @@ public class ContaPagamentoController {
     }
 
     @Operation(summary = "Consulta um pagamento realizado por uma conta")
-    @ApiResponse(responseCode = "200", description = "Consulta de pagamento realizada com sucesso")
-    @ApiResponse(responseCode = "400", description = "Dados inválidos/Violação de regra de negócio/Mensagem incompreensível")
-    @ApiResponse(responseCode = "404", description = "Recurso não encontrado")
-    @ApiResponse(responseCode = "500", description = "Erro de Sistema")
+    @ApiResponse(responseCode = "200", description = "Consulta de pagamento realizada com sucesso",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_PAGAMENTO_CONSULTA)
+            ))
+    @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_PAGAMENTO_NAO_ENCONTRADO)
+            ))
+    @ApiResponse(responseCode = "500", description = "Erro de Sistema",
+            content = @Content(
+                    schema = @Schema(implementation = PagamentoModel.class),
+                    examples = @ExampleObject(EXEMPLO_ERRO_DE_SISTEMA)
+            ))
     @GetMapping("/{codigoPagamento}")
     @JsonView(PagamentoView.Detalhe.class)
     public PagamentoModel buscar(@PathVariable Long contaRemetenteId, @PathVariable String codigoPagamento) {

@@ -23,7 +23,7 @@ import java.util.Set;
 
 @SpringBootTest
 @TestPropertySource("/application-test.properties")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class ConsultaClienteServiceIT {
     @Autowired
     private ClienteRepository clienteRepository;
@@ -33,7 +33,6 @@ class ConsultaClienteServiceIT {
     private ClienteMapper clienteMapper;
     @Autowired
     private ContaMapper contaMapper;
-
     @Autowired
     private ConsultaClienteService consultaClienteService;
     private ClienteEntity cliente;

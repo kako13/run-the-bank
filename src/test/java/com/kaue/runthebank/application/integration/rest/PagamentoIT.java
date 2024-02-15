@@ -15,17 +15,22 @@ import com.kaue.runthebank.application.core.utils.data.ResourceUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.TestPropertySource;
 
 import java.math.BigDecimal;
 
 import static io.restassured.RestAssured.given;
 
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@TestPropertySource("/application-test.properties")
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource("/application-test.properties")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class PagamentoIT {
     @LocalServerPort
     private int port;
@@ -43,15 +48,15 @@ class PagamentoIT {
     private ContaEntity contaRemetenteEntity;
     private ContaEntity contaDestinatarioEntity;
 
-//    @BeforeEach
+    @BeforeEach
     void setup() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
-        RestAssured.basePath = "/contas";
+        RestAssured.basePath = "/banking/contas";
         prepararDados();
     }
 
-//    @Test
+    @Test
     void deveRetornarStatus201_QuandoCadastrarClienteComCnpjComFormatacao() throws JsonProcessingException {
         String jsonCorretoPagamento = ResourceUtils.getContentFromResource(
                 "/json/correto/pagamento/pagamento.json");
@@ -70,7 +75,8 @@ class PagamentoIT {
                 .body("contaRemetente.agencia", Matchers.equalTo(contaRemetenteEntity.getAgencia()))
                 .body("contaDestinatario.id", Matchers.equalTo(Integer.valueOf(pagamentoInput.getContaDestinatarioId().toString())))
                 .body("contaDestinatario.agencia", Matchers.equalTo(contaDestinatarioEntity.getAgencia()))
-                .body("codigoPagamento", Matchers.notNullValue());
+                .body("codigoPagamento", Matchers.notNullValue())
+                .body("dataPagamento", Matchers.notNullValue());
     }
 
     private void prepararDados() {

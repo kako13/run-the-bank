@@ -21,7 +21,7 @@ import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
 @TestPropertySource("/application-test.properties")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class ConsultaContaClienteServiceIT {
     @Autowired
     private ClienteRepository clienteRepository;
@@ -31,7 +31,6 @@ class ConsultaContaClienteServiceIT {
     private ClienteMapper clienteMapper;
     @Autowired
     private ContaMapper contaMapper;
-
     @Autowired
     private ConsultaContaClienteService consultaContaClienteService;
     private ClienteEntity cliente;

@@ -6,7 +6,6 @@ import com.kaue.runthebank.adapters.inboud.assembler.cliente.ClienteMapper;
 import com.kaue.runthebank.adapters.inboud.controller.request.conta.ContaInput;
 import com.kaue.runthebank.adapters.inboud.entity.ClienteEntity;
 import com.kaue.runthebank.adapters.outbound.repository.ClienteRepository;
-import com.kaue.runthebank.adapters.outbound.repository.ContaRepository;
 import com.kaue.runthebank.application.core.domain.StatusConta;
 import com.kaue.runthebank.application.core.utils.data.ClienteTestData;
 import com.kaue.runthebank.application.core.utils.data.ResourceUtils;
@@ -19,19 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 
 import static io.restassured.RestAssured.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class CadastroContaIT {
     @LocalServerPort
     private int port;
     @Autowired
     private ClienteRepository clienteRepository;
-    @Autowired
-    private ContaRepository contaRepository;
     @Autowired
     private ClienteMapper clienteMapper;
     @Autowired
@@ -42,10 +41,7 @@ class CadastroContaIT {
     void setup() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
-        RestAssured.basePath = "/clientes";
-        contaRepository.deleteAll();
-        clienteRepository.deleteAll();
-
+        RestAssured.basePath = "/banking/clientes";
         prepararDados();
     }
 

@@ -3,7 +3,6 @@ package com.kaue.runthebank.application.integration.service.db;
 import com.kaue.runthebank.adapters.inboud.assembler.cliente.ClienteMapper;
 import com.kaue.runthebank.adapters.inboud.entity.ClienteEntity;
 import com.kaue.runthebank.adapters.outbound.repository.ClienteRepository;
-import com.kaue.runthebank.adapters.outbound.repository.ContaRepository;
 import com.kaue.runthebank.application.core.domain.Cliente;
 import com.kaue.runthebank.application.core.domain.Conta;
 import com.kaue.runthebank.application.core.service.AberturaContaClienteService;
@@ -19,15 +18,12 @@ import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
 @TestPropertySource("/application-test.properties")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class AberturaContaClienteServiceIT {
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
-    private ContaRepository contaRepository;
-    @Autowired
     private ClienteMapper clienteMapper;
-
     @Autowired
     private AberturaContaClienteService aberturaContaClienteService;
     private ClienteEntity cliente;
@@ -35,8 +31,6 @@ class AberturaContaClienteServiceIT {
 
     @BeforeEach
     void setUp() {
-        contaRepository.deleteAll();
-        clienteRepository.deleteAll();
         prepararDados();
     }
 

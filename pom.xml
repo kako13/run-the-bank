@@ -20,6 +20,7 @@
 		<springdoc.version>2.1.0</springdoc.version>
 		<camel.version>4.0.0-RC1</camel.version>
 		<camel-ahc.version>3.18.8</camel-ahc.version>
+		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -115,4 +116,34 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>docker</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+						<version>${dockerfile-maven-version}</version>
+						<executions>
+							<execution>
+								<id>default</id>
+								<goals>
+									<goal>build</goal>
+									<goal>push</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<repository>public-dev/run-the-bank</repository>
+							<tag>0.1</tag>
+							<buildArgs>
+								<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+							</buildArgs>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

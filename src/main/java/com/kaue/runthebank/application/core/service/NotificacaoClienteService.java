@@ -10,8 +10,8 @@ public class NotificacaoClienteService implements NotificacaoClienteServicePort 
     public static final String MSG_REMETENTE_PAGAMENTO = "Pagamento realizado no valor de'R$ %.2f' para '%s' na conta" +
             " '%d' e agência '%s'.";
     public static final String MSG_DESTINATARIO_PAGAMENTO = "Você recebeu um pagamento de '%s'.";
-    public static final String MSG_REMETENTE_ESTORNO = "Estorno do pagamento '%d' de valor de'R$ %.2f' foi realizado.";
-    public static final String MSG_DESTINATARIO_ESTORNO = "O pagamento recebido de '%s' foi desfeito.";
+    public static final String MSG_REMETENTE_ESTORNO = "Estorno do pagamento no valor de'R$ %.2f' foi realizado.";
+    public static final String MSG_DESTINATARIO_ESTORNO = "O pagamento recebido de '%s' foi estornado pelo remetente.";
     private final NotificacaoClientePort notificacaoClientePort;
 
     public NotificacaoClienteService(NotificacaoClientePort notificacaoClientePort) {

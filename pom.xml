@@ -86,11 +86,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jackson</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
@@ -135,8 +130,8 @@
 							</execution>
 						</executions>
 						<configuration>
-							<repository>public-dev/run-the-bank</repository>
-							<tag>0.1</tag>
+							<repository>kaue13/public-dev</repository>
+							<tag>run-the-bank</tag>
 							<buildArgs>
 								<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
 							</buildArgs>

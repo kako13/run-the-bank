@@ -266,7 +266,13 @@ servidores externos usando HTTP).
   * [SEDA](https://camel.apache.org/components/3.14.x/seda-component.html)
   * [Async HTTP Client (AHC)](https://camel.apache.org/components/3.14.x/ahc-component.html)
 
+
+###
+### Sobre a arquitetura
+_______________________________________________________________________________
+<p align="center">
+  <img src="arch-diagram.png" alt="Archteture Diagram">
+</p>
+
 ####
 #### _* É possível que o projeto sofra melhorias para fins de estudo._
-
-
